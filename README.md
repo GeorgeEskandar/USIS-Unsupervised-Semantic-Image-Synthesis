@@ -1,20 +1,18 @@
-# You Only Need Adversarial Supervision for Semantic Image Synthesis
+# USIS Unsupervised Semantic Image Synthesis
 
-Official PyTorch implementation of the ICLR 2021 paper "You Only Need Adversarial Supervision for Semantic Image Synthesis". The code allows the users to
-reproduce and extend the results reported in the study. Please cite the paper when reporting, reproducing or extending the results.
+Official PyTorch implementation of the ICASSP 2022 paper "You Only Need Adversarial Supervision for Semantic Image Synthesis" and journal paper "USIS: Unsupervised Semantic Image Synthesis". The code allows the users to reproduce and extend the results reported in the study. Please cite the paper when reporting, reproducing or extending the results.
 
-[[OpenReview](https://openreview.net/forum?id=yvQKLaqNE6M)]  [[Arxiv](https://arxiv.org/abs/2012.04781)]  
+[[IEEE ICASSP]([https://openreview.net/forum?id=yvQKLaqNE6M](https://ieeexplore.ieee.org/document/9746759))]  [[Arxiv](https://arxiv.org/abs/2109.14715)] [[CAG](https://www.sciencedirect.com/science/article/abs/pii/S0097849323000018)]  
+
 
 # Overview
 
-This repository implements the OASIS model, which generates realistic looking images from semantic label maps. In addition, many different images can be generated from any given label map by simply resampling a noise vector (first two rows of the figure below). The model also allows to just resample parts of the image (see the last two rows of the figure below). Check out the paper for details, as well as the appendix, which contains many additional examples.
+This repository implements the USIS (CAG and Arxiv) and USIS-Wavelet (ICASSP) models, which generate realistic looking images from semantic label maps in an unpaired way. This repository is built upon the supervised OASIS repository [https://github.com/boschresearch/OASIS]
 
 
 <p align="center">
 <img src="overview.png" >
 </p>
-
-
 
 ## Setup
 First, clone this repository:
