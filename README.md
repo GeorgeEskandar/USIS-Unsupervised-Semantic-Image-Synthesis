@@ -17,8 +17,8 @@ This repository implements the USIS (CAG and Arxiv) and USIS-Wavelet (ICASSP) mo
 ## Setup
 First, clone this repository:
 ```
-git clone https://github.com/boschresearch/OASIS.git
-cd OASIS
+git clone [https://github.com/boschresearch/OASIS.git](https://github.com/GeorgeEskandar/USIS-Unsupervised-Semantic-Image-Synthesis.git)
+cd USIS
 ```
 
 The code is tested for Python 3.7.6 and the packages listed in [oasis.yml](oasis.yml).
@@ -34,27 +34,15 @@ For COCO-Stuff, Cityscapes or ADE20K, please follow the instructions for the dat
 
 ## Training the model
 
-To train the model, execute the training scripts in the ```scripts``` folder. In these scripts you first need to specify the path to the data folder. Via the ```--name``` parameter the experiment can be given a unique identifier. The experimental results are then saved in the folder ```./checkpoints```, where a new folder for each run is created with the specified experiment name. You can also specify another folder for the checkpoints using the ```--checkpoints_dir``` parameter.
+To train the model, execute the usis.sh file. In this script you first need to specify the path to the data folder. Via the ```--name``` parameter the experiment can be given a unique identifier. The experimental results are then saved in the folder ```./checkpoints```, where a new folder for each run is created with the specified experiment name. You can also specify another folder for the checkpoints using the ```--checkpoints_dir``` parameter.
 If you want to continue training, start the respective script with the ```--continue_train``` flag. Have a look at ```config.py``` for other options you can specify.  
-Training on 4 NVIDIA Tesla V100 (32GB) is recommended.
+Training with a batchsize of 4 is recommended for USIS and 8 for USIS-Wavelet. 
 
 ## Testing the model
 
-To test a trained model, execute the testing scripts in the ```scripts``` folder. The ```--name``` parameter should correspond to the experiment name that you want to test, and the ```--checkpoints_dir``` should the folder where the experiment is saved (default: ```./checkpoints```). These scripts will generate images from a pretrained model in ```./results/name/```.
+To test a trained model, execute the testing scripts uing the command in usis.sh file. The ```--name``` parameter should correspond to the experiment name that you want to test, and the ```--checkpoints_dir``` should the folder where the experiment is saved (default: ```./checkpoints```). These scripts will generate images from a pretrained model in ```./results/name/```.
 
-## Measuring FID
-
-The FID is computed on the fly during training, using the popular PyTorch FID implementation from https://github.com/mseitzer/pytorch-fid. At the beginning of training, the inception moments of the real images are computed before the actual training loop starts. How frequently the FID should be evaluated is controlled via the parameter ```--freq_fid```, which is set to 5000 steps by default. The inception net that is used for FID computation automatically downloads a pre-trained inception net checkpoint. If that automatic download fails, for instance because your server has restricted internet access, get the checkpoint named ```pt_inception-2015-12-05-6726825d.pth``` from [here](https://www.dropbox.com/sh/nf6of02pyk84zjg/AAC8hnnj0T_MAiPx3tzdAyiWa?dl=0) and place it in ```/utils/fid_folder/```. In this case, do not forget to replace ```load_state_dict_from_url``` function accordingly.
-
-## Pretrained models
-
-The checkpoints for the pre-trained models are available [here](https://www.dropbox.com/sh/nf6of02pyk84zjg/AAC8hnnj0T_MAiPx3tzdAyiWa?dl=0) as zip files. Copy them into the checkpoints folder (the default is ```./checkpoints```, create it if it doesn't yet exist) and unzip them. The folder structure should be  
-```
-checkpoints_dir
-├── oasis_ade20k_pretrained                   
-├── oasis_cityscapes_pretrained  
-└── oasis_coco_pretrained
-```
+## Testing
 
 You can generate images with a pre-trained checkpoint via ```test.py```. Using the example of ADE20K:
 ```
@@ -63,16 +51,33 @@ python test.py --dataset_mode ade20k --name oasis_ade20k_pretrained \
 ```
 This script will create a folder named ```./results``` in which the resulting images are saved.
 
-If you want to continue training from this checkpoint, use ```train.py``` with the same ```--name``` parameter and add ```--continue_train --which_iter best```.
+If you want to continue training from this checkpoint, use ```train.py``` with the same ```--name``` parameter and add ```--continue_train --which_iter best```. Check the usis.sh file for examples on how to train and test the model.
 ## Citation
 If you use this work please cite
 ```
-@inproceedings{schonfeld_sushko_iclr2021,
-  title={You Only Need Adversarial Supervision for Semantic Image Synthesis},
-  author={Sch{\"o}nfeld, Edgar and Sushko, Vadim and Zhang, Dan and Gall, Juergen and Schiele, Bernt and Khoreva, Anna},
-  booktitle={International Conference on Learning Representations},
-  year={2021}
-}   
+@article{ESKANDAR202314,
+title = {USIS: Unsupervised Semantic Image Synthesis},
+journal = {Computers & Graphics},
+volume = {111},
+pages = {14-23},
+year = {2023},
+issn = {0097-8493},
+doi = {https://doi.org/10.1016/j.cag.2022.12.010},
+url = {https://www.sciencedirect.com/science/article/pii/S0097849323000018},
+author = {George Eskandar and Mohamed Abdelsamad and Karim Armanious and Bin Yang},
+}  
+
+and 
+
+@INPROCEEDINGS{9746759,
+  author={Eskandar, George and Abdelsamad, Mohamed and Armanious, Karim and Zhang, Shuai and Yang, Bin},
+  booktitle={ICASSP 2022 - 2022 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP)}, 
+  title={Wavelet-Based Unsupervised Label-to-Image Translation}, 
+  year={2022},
+  volume={},
+  number={},
+  pages={1760-1764},
+  doi={10.1109/ICASSP43922.2022.9746759}}
 ```
 
 ## License
@@ -85,15 +90,10 @@ file [3rd-party-licenses.txt](3rd-party-licenses.txt).
 
 ## Purpose of the project
 
-This software is a research prototype, solely developed for and published as
-part of the publication cited above. It will neither be
-maintained nor monitored in any way.
+This software is a research prototype, solely developed for and published as part of the publication cited above.
 
 ## Contact
 Please feel free to open an issue or contact us personally if you have questions, need help, or need explanations.
-Write to one of the following email addresses, and maybe put one other in the cc:
 
-edgarschoenfeld@live.de  
-vad221@gmail.com  
-edgar.schoenfeld@bosch.com  
-vadim.sushko@bosch.com  
+george.eskandar@iss.uni-stuttgart.de
+georgesbassem@gmail.com
