@@ -2,7 +2,7 @@
 
 Official PyTorch implementation of the ICASSP 2022 paper "You Only Need Adversarial Supervision for Semantic Image Synthesis" and journal paper "USIS: Unsupervised Semantic Image Synthesis". The code allows the users to reproduce and extend the results reported in the study. Please cite the paper when reporting, reproducing or extending the results.
 
-[[IEEE ICASSP]([https://openreview.net/forum?id=yvQKLaqNE6M](https://ieeexplore.ieee.org/document/9746759))]  [[Arxiv](https://arxiv.org/abs/2109.14715)] [[CAG](https://www.sciencedirect.com/science/article/abs/pii/S0097849323000018)]  
+[[IEEE ICASSP](https://ieeexplore.ieee.org/document/9746759)]  [[Arxiv](https://arxiv.org/abs/2109.14715)] [[CAG](https://www.sciencedirect.com/science/article/abs/pii/S0097849323000018)]  
 
 
 # Overview
