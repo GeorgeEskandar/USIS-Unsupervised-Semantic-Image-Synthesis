@@ -17,7 +17,7 @@ This repository implements the USIS (CAG and Arxiv) and USIS-Wavelet (ICASSP) mo
 ## Setup
 First, clone this repository:
 ```
-git clone [[[https://github.com/boschresearch/OASIS.git](https://github.com/GeorgeEskandar/USIS-Unsupervised-Semantic-Image-Synthesis.git)](https://github.com/GeorgeEskandar/USIS-Unsupervised-Semantic-Image-Synthesis.git)](https://github.com/GeorgeEskandar/USIS-Unsupervised-Semantic-Image-Synthesis.git)
+git clone https://github.com/GeorgeEskandar/USIS-Unsupervised-Semantic-Image-Synthesis.git
 cd USIS
 ```
 
