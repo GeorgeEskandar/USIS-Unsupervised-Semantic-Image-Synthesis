@@ -18,7 +18,7 @@ This repository implements the USIS (CAG and Arxiv) and USIS-Wavelet (ICASSP) mo
 First, clone this repository:
 ```
 git clone https://github.com/GeorgeEskandar/USIS-Unsupervised-Semantic-Image-Synthesis.git
-cd USIS
+cd USIS-Unsupervised-Semantic-Image-Synthesis
 ```
 
 The code is tested for Python 3.7.6 and the packages listed in [oasis.yml](oasis.yml).
