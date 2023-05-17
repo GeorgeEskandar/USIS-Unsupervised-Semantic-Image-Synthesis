@@ -17,17 +17,23 @@ This repository implements the USIS (CAG and Arxiv) and USIS-Wavelet (ICASSP) mo
 ## Setup
 First, clone this repository:
 ```
-git clone [https://github.com/boschresearch/OASIS.git](https://github.com/GeorgeEskandar/USIS-Unsupervised-Semantic-Image-Synthesis.git)
+git clone [[https://github.com/boschresearch/OASIS.git](https://github.com/GeorgeEskandar/USIS-Unsupervised-Semantic-Image-Synthesis.git)](https://github.com/GeorgeEskandar/USIS-Unsupervised-Semantic-Image-Synthesis.git)
 cd USIS
 ```
 
 The code is tested for Python 3.7.6 and the packages listed in [oasis.yml](oasis.yml).
 The basic requirements are PyTorch and Torchvision.
-The easiest way to get going is to install the oasis conda environment via
+The easiest way to get going is to setup a conda environment via
 ```
-conda env create --file oasis.yml
-source activate oasis
+conda create -n myenv gcc_linux-64=7.3 python=3.8 gxx_linux-64=7.3
+conda activate myenv
+conda install -c anaconda cudatoolkit=11.3
+conda install -c conda-forge cudatoolkit-dev=11.3
+conda install -c nvidia cudnn=7.6.5
+pip install -r requirements.txt
 ```
+Then install the pytorch-wavelet library from this repo: [https://github.com/fbcotter/pytorch_wavelets](https://github.com/fbcotter/pytorch_wavelets)
+
 ## Datasets
 
 For COCO-Stuff, Cityscapes or ADE20K, please follow the instructions for the dataset preparation as outlined in [https://github.com/NVlabs/SPADE](https://github.com/NVlabs/SPADE).
@@ -37,21 +43,21 @@ For COCO-Stuff, Cityscapes or ADE20K, please follow the instructions for the dat
 To train the model, execute the usis.sh file. In this script you first need to specify the path to the data folder. Via the ```--name``` parameter the experiment can be given a unique identifier. The experimental results are then saved in the folder ```./checkpoints```, where a new folder for each run is created with the specified experiment name. You can also specify another folder for the checkpoints using the ```--checkpoints_dir``` parameter.
 If you want to continue training, start the respective script with the ```--continue_train``` flag. Have a look at ```config.py``` for other options you can specify.  
 Training with a batchsize of 4 is recommended for USIS and 8 for USIS-Wavelet. 
+To train with the wavelet-SPADE generator, specify the option --netG wavelet, and to train with the wavelet decoder and reconstruction loss, specfiy --netDu wavelet_decoder.
 
 ## Testing the model
 
 To test a trained model, execute the testing scripts uing the command in usis.sh file. The ```--name``` parameter should correspond to the experiment name that you want to test, and the ```--checkpoints_dir``` should the folder where the experiment is saved (default: ```./checkpoints```). These scripts will generate images from a pretrained model in ```./results/name/```.
 
-## Testing
-
 You can generate images with a pre-trained checkpoint via ```test.py```. Using the example of ADE20K:
 ```
-python test.py --dataset_mode ade20k --name oasis_ade20k_pretrained \
+python test.py --dataset_mode ade20k --name usis_ade20k \
 --dataroot path_to/ADEChallenge2016
 ```
 This script will create a folder named ```./results``` in which the resulting images are saved.
 
 If you want to continue training from this checkpoint, use ```train.py``` with the same ```--name``` parameter and add ```--continue_train --which_iter best```. Check the usis.sh file for examples on how to train and test the model.
+
 ## Citation
 If you use this work please cite
 ```
